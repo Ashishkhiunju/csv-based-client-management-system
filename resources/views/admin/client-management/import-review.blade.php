@@ -27,7 +27,7 @@
 
     <div class="card collapsed-card" id="duplicate-card">
         <div class="card-header" id="duplicate-card-header" style="cursor: pointer;">
-            <h3 class="card-title">Duplicate Rows (click to expand)</h3>
+            <h3 class="card-title">Duplicate Rows (Toggle to expand or collapse)</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-plus"></i>
@@ -39,7 +39,7 @@
                 <p>No duplicate rows data available.</p>
             @else
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" style="color:rgb(138, 41, 41);">
                         <thead>
                             <tr>
                                 <th>Row #</th>
@@ -69,6 +69,9 @@
 
 @section('js')
     <script>
+        $(document).ready(function () {
+            $('#duplicate-card').find('[data-card-widget="collapse"]').trigger('click');
+        });
         $(function () {
             $('#duplicate-card-header').on('click', function (e) {
                 if ($(e.target).closest('[data-card-widget="collapse"], button, a, input, select, textarea, label').length) {

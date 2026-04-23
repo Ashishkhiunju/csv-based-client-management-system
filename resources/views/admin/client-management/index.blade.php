@@ -37,8 +37,11 @@
                     <div class="col-md-5">
                         <div class="form-group mb-0 d-flex flex-wrap">
                             <button type="submit" class="btn btn-success mr-2 mb-2 mb-md-0">Import</button>
-                            <a class="btn btn-outline-primary mb-2 mb-md-0" href="{{ asset('template/clients_template.csv') }}" download>
-                                Download Template
+                            <a class="btn btn-outline-primary mr-2 mb-2 mb-md-0" href="{{ asset('template/clients_template.csv') }}" download>
+                                Download Client CSV
+                            </a>
+                            <a class="btn btn-outline-warning mb-2 mb-md-0" href="{{ asset('template/clients_template_with_duplicates.csv') }}" download>
+                                Download Duplicate Demo CSV
                             </a>
                         </div>
                     </div>
@@ -52,6 +55,11 @@
     </div>
 
     <div class="card">
+        <div class="card-header d-flex justify-content-end">
+            <a href="{{ route('client-management.export.all') }}" class="btn btn-outline-secondary btn-sm">
+                Export All CSV
+            </a>
+        </div>
         <div class="card-body">
             {!! $dataTable->table(['class' => 'table table-bordered table-striped'], true) !!}
         </div>
@@ -60,7 +68,16 @@
 
 @section('plugins.Datatables', true)
 
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css">
+@stop
+
 @section('js')
     {!! $dataTable->scripts() !!}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 @stop
 

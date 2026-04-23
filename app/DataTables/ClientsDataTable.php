@@ -6,6 +6,7 @@ use App\Models\Client;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -42,6 +43,13 @@ class ClientsDataTable extends DataTable
                     ->setTableId('clients-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->dom('frtip')
+                    ->buttons([
+                        Button::make('csv')
+                            ->text('Export CSV')
+                            ->className('btn btn-primary btn-sm')
+                            ->filename('clients_current_' . date('Ymd_His')),
+                    ])
                     ->orderBy(0);
     }
 

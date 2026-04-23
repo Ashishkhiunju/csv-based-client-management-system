@@ -11,6 +11,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ClientManagementController extends Controller
 {
@@ -179,7 +180,7 @@ class ClientManagementController extends Controller
         }
 
         $duplicates = session('duplicates', []);
-
+        
         return view('admin.client-management.import-review', [
             'token' => $token,
             'duplicates' => $duplicates,
@@ -215,6 +216,28 @@ class ClientManagementController extends Controller
         return redirect()
             ->route('client-management')
             ->with('success', 'Import cancelled.');
+    }
+
+    public function exportAllCsv(): StreamedResponse
+    {
+        $filename = 'clients_all_' . now()->format('Ymd_His') . '.csv';
+
+        return response()->streamDownload(function () {
+            $out = fopen('php://output', 'w');
+            fputcsv($out, ['company_name', 'email', 'phone_number']);
+
+            Client::query()
+                ->orderBy('id')
+                ->chunk(2000, function ($clients) use ($out) {
+                    foreach ($clients as $client) {
+                        fputcsv($out, [$client->company_name, $client->email, $client->phone_number]);
+                    }
+                });
+
+            fclose($out);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
     }
 
     private function importFromTempCsv(string $tmpRelativePath): int

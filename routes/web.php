@@ -14,6 +14,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/client-management', [ClientManagementController::class, 'index'])->name('client-management');
+    Route::get('/client-management/export/all', [ClientManagementController::class, 'exportAllCsv'])->name('client-management.export.all');
     Route::post('/client-management/import', [ClientManagementController::class, 'import'])->name('client-management.import');
     Route::get('/client-management/import/review/{token}', [ClientManagementController::class, 'importReview'])->name('client-management.import.review');
     Route::post('/client-management/import/confirm/{token}', [ClientManagementController::class, 'importConfirm'])->name('client-management.import.confirm');
