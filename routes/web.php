@@ -4,10 +4,19 @@ use App\Http\Controllers\ClientManagementController;
 use App\Http\Controllers\TestRunnerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/readme', function () {
+    $md = @file_get_contents(base_path('README.md')) ?: '# README not found';
+
+    return view('readme', [
+        'html' => Str::markdown($md),
+    ]);
+})->name('readme');
 
 Auth::routes();
 

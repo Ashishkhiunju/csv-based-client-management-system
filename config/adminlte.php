@@ -335,14 +335,7 @@ return [
             // 'label_color' => 'success',
              'target' => '_blank', 
         ],
-        [
-            'text' => 'Readme',
-            'url' => 'admin/readme',
-            'icon' => 'fas fa-file-alt',
-            // 'label' => 4,
-            // 'label_color' => 'success',
-          
-        ],
+       
         [
             'text' => 'Tests',
             'url' => 'admin/test',

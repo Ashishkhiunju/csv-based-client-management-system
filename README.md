@@ -1,59 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+</p> -->
 
-## About Laravel
+# CSV Based Client Management System
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project overview and features implemented
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This is a Laravel (jeroennoten / Laravel-AdminLTE) admin panel app to manage clients stored in a database, with CSV import/export support.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Features
 
-## Learning Laravel
+- Authentication (Laravel UI) with AdminLTE UI
+- Client management (CRUD)
+- DataTables listing (Yajra DataTables)
+- CSV import with:
+  -    ⚫Validation (Form Request)
+  -    ⚫Duplicate detection (file + database)
+  -    ⚫Review screen + confirm/cancel flow
+- CSV export (streamed)
+- Test runner page (local-only) to run selected Unit/Feature tests and show output in the UI
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP **8.2+**
+- Composer
+- Database: MySQL
+- Node.js + npm (for Vite assets)
+- Node **20.0+**
+- Npm **10.8+**
 
-## Laravel Sponsors
+## Step-by-step installation instructions
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone <your-repo-url>
+cd csv-based-client-management-system
+composer install
+copy .env.example .env
+php artisan key:generate
+```
 
-### Premium Partners
+## Database setup and migration commands
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1) Update `.env`:
 
-## Contributing
+- `DB_CONNECTION=mysql`
+- `DB_HOST=127.0.0.1`
+- `DB_PORT=3306`
+- `DB_DATABASE=...`
+- `DB_USERNAME=...`
+- `DB_PASSWORD=...`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2) Run migrations:
 
-## Code of Conduct
+```bash
+php artisan migrate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Frontend assets (Vite)
 
-## Security Vulnerabilities
+```bash
+npm install
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+For development (hot reload):
 
-## License
+```bash
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## How to run the application
+
+Using Laravel built-in server:
+
+```bash
+php artisan serve
+```
+
+Then open the app in your browser (example): `http://127.0.0.1:8000`
+
+### Demo login
+
+- Username: `Administrator`
+- Password: `admin`
+
+## How to run tests
+
+Run everything:
+
+```bash
+php artisan test
+```
+
+Run a single Feature test:
+
+```bash
+php artisan test tests/Feature/ClientManagementTest.php
+```
+
+Run selected Unit tests:
+
+```bash
+php artisan test tests/Unit/ClientCsvServiceTest.php tests/Unit/CsvTemplatesTest.php tests/Unit/ImportClientsRequestTest.php
+```
+
+### Notes about test database
+
+- The UI test-runner page runs tests with SQLite overrides (so it does not require MySQL to be running).
+
+## API documentation / Postman
+
+This project has a small API in `routes/api.php` (prefix: `/api`).
+
+### Routes (requires `auth:sanctum`)
+
+#### Public
+
+<!-- - `POST /api/register` -->
+- `POST /api/login`
+
+#### Protected 
+
+- `GET /api/clients`
+- `POST /api/logout`
+
+
