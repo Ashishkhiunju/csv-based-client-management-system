@@ -149,5 +149,14 @@ class ClientManagementController extends Controller
             ->route('client-management')
             ->with('success', 'Client deleted successfully.');
     }
+
+    public function destroyAll(Request $request): RedirectResponse
+    {
+        $deleted = Client::query()->delete();
+
+        return redirect()
+            ->route('client-management')
+            ->with('success', "Deleted {$deleted} client record(s).");
+    }
 }
 

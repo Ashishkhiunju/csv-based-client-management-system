@@ -55,7 +55,19 @@
     </div>
 
     <div class="card">
-        <div class="card-header d-flex justify-content-end">
+        <div class="card-header d-flex justify-content-end" style="gap: 8px;">
+            <form
+                action="{{ route('client-management.destroy.all') }}"
+                method="POST"
+                onsubmit="return confirm('This will delete ALL client records. Are you sure?')"
+            >
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">
+                    Delete all records
+                </button>
+            </form>
+
             <a href="{{ route('client-management.export.all') }}" class="btn btn-outline-secondary btn-sm">
                 Export All CSV
             </a>

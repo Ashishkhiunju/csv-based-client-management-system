@@ -37,7 +37,7 @@
                 </a>
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}">
+                        <a href="{{ url('admin/client-management') }}">
                             Dashboard
                         </a>
                     @else

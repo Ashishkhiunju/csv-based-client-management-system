@@ -16,14 +16,14 @@ This is a Laravel (jeroennoten / Laravel-AdminLTE) admin panel app to manage cli
 ### Features
 
 - Authentication (Laravel UI) with AdminLTE UI
-- Client management (CRUD)
+- Client management (CSV)
 - DataTables listing (Yajra DataTables)
 - CSV import with:
   -    ⚫Validation (Form Request)
   -    ⚫Duplicate detection (file + database)
   -    ⚫Review screen + confirm/cancel flow
 - CSV export (streamed)
-- Test runner page (local-only) to run selected Unit/Feature tests and show output in the UI
+- Test runner page to run selected Unit/Feature tests and show output in the UI. Use Test runner token "9ccd77a53a7f9186bc925f9e7f9f413fe18d655127b597e0834e20ee905c4644"
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ This is a Laravel (jeroennoten / Laravel-AdminLTE) admin panel app to manage cli
 
 ```bash
 git-repo https://github.com/Ashishkhiunju/csv-based-client-management-system.git
-git clone <your-repo-url>
+git clone https://github.com/Ashishkhiunju/csv-based-client-management-system.git
 cd csv-based-client-management-system
 composer install
 copy .env.example .env
@@ -85,10 +85,6 @@ php artisan serve
 
 Then open the app in your browser (example): `http://127.0.0.1:8000`
 
-### Demo login
-
-- Username: `Administrator@admin.com`
-- Password: `administrator`
 
 ## How to run tests
 
@@ -109,6 +105,26 @@ Run selected Unit tests:
 ```bash
 php artisan test tests/Unit/ClientCsvServiceTest.php tests/Unit/CsvTemplatesTest.php tests/Unit/ImportClientsRequestTest.php
 ```
+
+## Live Urls
+
+- Frontend Url : <a href="https://client-management.primedcw.com/" target="_blank" rel="noopener noreferrer">https://client-management.primedcw.com/</a>
+- Backend Url : <a href="https://client-management-admin.primedcw.com/" target="_blank" rel="noopener noreferrer">https://client-management-admin.primedcw.com/</a>
+
+
+### Demo login
+
+- Username: `Administrator@admin.com`
+- Password: `administrator`
+
+
+### CSV import instructions
+- After logging into the dashboard, go to **Client Management**.
+- Click **Download CSV** (next to the **Import** button).
+- Import the same downloaded CSV file.
+- **Important:** The CSV file must follow the **same column structure and data format** as the downloaded template (same headers/order). Otherwise the import may fail or produce incorrect results.
+
+
 
 ### Notes about test database
 

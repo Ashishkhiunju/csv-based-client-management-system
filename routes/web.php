@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/client-management/import/review/{token}', [ClientManagementController::class, 'importReview'])->name('client-management.import.review');
     Route::post('/client-management/import/confirm/{token}', [ClientManagementController::class, 'importConfirm'])->name('client-management.import.confirm');
     Route::post('/client-management/import/cancel/{token}', [ClientManagementController::class, 'importCancel'])->name('client-management.import.cancel');
+    Route::delete('/client-management/delete-all', [ClientManagementController::class, 'destroyAll'])->name('client-management.destroy.all');
     Route::get('/client-management/{client}/edit', [ClientManagementController::class, 'edit'])->name('client-management.edit');
     Route::put('/client-management/{client}', [ClientManagementController::class, 'update'])->name('client-management.update');
     Route::delete('/client-management/{client}', [ClientManagementController::class, 'destroy'])->name('client-management.destroy');
