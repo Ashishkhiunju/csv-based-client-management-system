@@ -11,7 +11,8 @@
 @section('content')
     @if (!app()->environment('local'))
         <div class="alert alert-warning">
-            Test runner is available only in <strong>local</strong> environment.
+            Web test runner is protected by a token.
+            Set <code>TEST_RUNNER_TOKEN</code> (and optionally <code>TEST_RUNNER_ALLOWED_IPS</code>) in your <code>.env</code>.
         </div>
     @endif
 
@@ -23,6 +24,21 @@
             <div class="d-flex flex-wrap gap-2" style="gap: 10px;">
                 <form method="POST" action="{{ route('admin.test.runFeature') }}">
                     @csrf
+                    @if (!app()->environment('local'))
+                        <div class="mb-2" style="min-width: 280px;">
+                            <label class="form-label text-muted mb-1" for="test_runner_token_feature" style="font-size: 0.9rem;">
+                                Test runner token
+                            </label>
+                            <input
+                                id="test_runner_token_feature"
+                                name="test_runner_token"
+                                type="password"
+                                class="form-control form-control-sm"
+                                placeholder="TEST_RUNNER_TOKEN"
+                                required
+                            />
+                        </div>
+                    @endif
                     <button type="submit" class="btn btn-success">
                         Run Feature Test
                     </button>
@@ -33,6 +49,21 @@
 
                 <form method="POST" action="{{ route('admin.test.runUnit') }}">
                     @csrf
+                    @if (!app()->environment('local'))
+                        <div class="mb-2" style="min-width: 280px;">
+                            <label class="form-label text-muted mb-1" for="test_runner_token_unit" style="font-size: 0.9rem;">
+                                Test runner token
+                            </label>
+                            <input
+                                id="test_runner_token_unit"
+                                name="test_runner_token"
+                                type="password"
+                                class="form-control form-control-sm"
+                                placeholder="TEST_RUNNER_TOKEN"
+                                required
+                            />
+                        </div>
+                    @endif
                     <button type="submit" class="btn btn-success">
                         Run Unit Tests
                     </button>

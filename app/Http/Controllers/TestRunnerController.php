@@ -16,13 +16,12 @@ class TestRunnerController extends Controller
 
     public function runFeature(Request $request): RedirectResponse
     {
-        $this->ensureLocalOnly();
+        $this->ensureAllowed($request);
 
         $process = $this->runCommand([
             PHP_BINARY,
-            'artisan',
-            'test',
-            'tests/Feature/ClientManagementTest.php',
+            base_path('vendor/bin/pest'),
+            base_path('tests/Feature/ClientManagementTest.php'),
         ], $this->testingEnvOverrides());
 
         return back()->with([
@@ -33,15 +32,14 @@ class TestRunnerController extends Controller
 
     public function runUnit(Request $request): RedirectResponse
     {
-        $this->ensureLocalOnly();
+        $this->ensureAllowed($request);
 
         $process = $this->runCommand([
             PHP_BINARY,
-            'artisan',
-            'test',
-            'tests/Unit/ClientCsvServiceTest.php',
-            'tests/Unit/CsvTemplatesTest.php',
-            'tests/Unit/ImportClientsRequestTest.php',
+            base_path('vendor/bin/pest'),
+            base_path('tests/Unit/ClientCsvServiceTest.php'),
+            base_path('tests/Unit/CsvTemplatesTest.php'),
+            base_path('tests/Unit/ImportClientsRequestTest.php'),
         ], $this->testingEnvOverrides());
 
         return back()->with([
@@ -50,10 +48,28 @@ class TestRunnerController extends Controller
         ]);
     }
 
-    private function ensureLocalOnly(): void
+    private function ensureAllowed(Request $request): void
     {
-        if (! app()->environment('local')) {
-            abort(403, 'Test runner is allowed only in local environment.');
+        if (app()->environment('local')) {
+            return;
+        }
+
+        $token = (string) env('TEST_RUNNER_TOKEN', '');
+        if ($token === '') {
+            abort(403, 'Test runner is not enabled.');
+        }
+
+        $provided = (string) $request->input('test_runner_token', '');
+        if (! hash_equals($token, $provided)) {
+            abort(403, 'Invalid test runner token.');
+        }
+
+        $allowedIps = (string) env('TEST_RUNNER_ALLOWED_IPS', '');
+        if ($allowedIps !== '') {
+            $ips = array_values(array_filter(array_map('trim', explode(',', $allowedIps))));
+            if ($ips !== [] && ! in_array((string) $request->ip(), $ips, true)) {
+                abort(403, 'IP not allowed for test runner.');
+            }
         }
     }
 
@@ -63,6 +79,13 @@ class TestRunnerController extends Controller
      */
     private function runCommand(array $command, array $extraEnv = []): Process
     {
+        if (! defined('STDOUT')) {
+            define('STDOUT', fopen('php://stdout', 'w'));
+        }
+        if (! defined('STDERR')) {
+            define('STDERR', fopen('php://stderr', 'w'));
+        }
+
         $tmpDir = storage_path('app/process-tmp');
         if (! is_dir($tmpDir)) {
             @mkdir($tmpDir, 0777, true);
