@@ -63,8 +63,8 @@
                         </a>
 
                         <div class="mt-3 text-[#706f6c] dark:text-[#A1A09A]">
-                            Login username: <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Administrator</span><br>
-                            Password: <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">admin</span>
+                            Login username: <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">Administrator@admin.com</span><br>
+                            Password: <span class="font-medium text-[#1b1b18] dark:text-[#EDEDEC]">administrator</span>
                         </div>
                     </div>
                     
