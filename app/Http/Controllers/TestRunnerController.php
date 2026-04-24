@@ -19,8 +19,7 @@ class TestRunnerController extends Controller
         $this->ensureAllowed($request);
 
         $process = $this->runCommand([
-            PHP_BINARY,
-            base_path('vendor/pestphp/pest/bin/pest'),
+            ...$this->pestCommandPrefix(),
             base_path('tests/Feature/ClientManagementTest.php'),
         ], $this->testingEnvOverrides());
 
@@ -35,8 +34,7 @@ class TestRunnerController extends Controller
         $this->ensureAllowed($request);
 
         $process = $this->runCommand([
-            PHP_BINARY,
-            base_path('vendor/pestphp/pest/bin/pest'),
+            ...$this->pestCommandPrefix(),
             base_path('tests/Unit/ClientCsvServiceTest.php'),
             base_path('tests/Unit/CsvTemplatesTest.php'),
             base_path('tests/Unit/ImportClientsRequestTest.php'),
@@ -71,6 +69,22 @@ class TestRunnerController extends Controller
                 abort(403, 'IP not allowed for test runner.');
             }
         }
+    }
+
+    /**
+     * On Linux/cPanel, running `php vendor/pestphp/pest/bin/pest` breaks because the
+     * shebang line is treated as output, making `declare(strict_types=1)` invalid.
+     * Execute the script directly there, but keep the Windows dev flow working.
+     *
+     * @return array<int,string>
+     */
+    private function pestCommandPrefix(): array
+    {
+        if (DIRECTORY_SEPARATOR === '\\') {
+            return [PHP_BINARY, base_path('vendor/bin/pest')];
+        }
+
+        return [base_path('vendor/pestphp/pest/bin/pest')];
     }
 
     /**
