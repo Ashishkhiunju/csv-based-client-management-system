@@ -37,6 +37,7 @@ This is a Laravel (jeroennoten / Laravel-AdminLTE) admin panel app to manage cli
 ## Step-by-step installation instructions
 
 ```bash
+git-repo https://github.com/Ashishkhiunju/csv-based-client-management-system.git
 git clone <your-repo-url>
 cd csv-based-client-management-system
 composer install
@@ -86,8 +87,8 @@ Then open the app in your browser (example): `http://127.0.0.1:8000`
 
 ### Demo login
 
-- Username: `Administrator`
-- Password: `admin`
+- Username: `Administrator@admin.com`
+- Password: `administrator`
 
 ## How to run tests
 

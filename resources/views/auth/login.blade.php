@@ -5,8 +5,8 @@
 
     <div class="alert alert-info mt-3 mb-0">
         <strong>Demo login</strong><br>
-        Username: <strong>Administrator</strong><br>
-        Password: <strong>admin</strong>
+        Username: <strong>Administrator@admin.com</strong><br>
+        Password: <strong>administrator</strong>
         <p class="my-0">
             <a href="{{ route('readme') }}">Open README</a>
         </p>
