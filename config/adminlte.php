@@ -329,7 +329,7 @@ return [
         ],
         [
             'text' => 'React App',
-            'url' => 'http://localhost:5173/',
+            'url' => 'https://client-management.primedcw.com/',
             'icon' => 'fab fa-react',
             // 'label' => 4,
             // 'label_color' => 'success',
