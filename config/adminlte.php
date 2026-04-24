@@ -327,6 +327,30 @@ return [
             // 'label' => 4,
             // 'label_color' => 'success',
         ],
+        [
+            'text' => 'React App',
+            'url' => 'http://localhost:5173/',
+            'icon' => 'fab fa-react',
+            // 'label' => 4,
+            // 'label_color' => 'success',
+             'target' => '_blank', 
+        ],
+        [
+            'text' => 'Readme',
+            'url' => 'admin/readme',
+            'icon' => 'fas fa-file-alt',
+            // 'label' => 4,
+            // 'label_color' => 'success',
+          
+        ],
+        [
+            'text' => 'Tests',
+            'url' => 'admin/test',
+            'icon' => 'fas fa-flask',
+            // 'label' => 4,
+            // 'label_color' => 'success',
+          
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
