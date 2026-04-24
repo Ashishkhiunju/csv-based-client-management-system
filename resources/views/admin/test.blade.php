@@ -12,7 +12,7 @@
     @if (!app()->environment('local'))
         <div class="alert alert-warning">
             Web test runner is protected by a token.
-            Set <code>TEST_RUNNER_TOKEN:9ccd77a53a7f9186bc925f9e7f9f413fe18d655127b597e0834e20ee905c4644</code>
+            Set TEST_RUNNER_TOKEN:9ccd77a53a7f9186bc925f9e7f9f413fe18d655127b597e0834e20ee905c4644
         </div>
     @endif
 
