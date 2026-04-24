@@ -111,6 +111,11 @@ php artisan test tests/Unit/ClientCsvServiceTest.php tests/Unit/CsvTemplatesTest
 - Frontend Url : <a href="https://client-management.primedcw.com/" target="_blank" rel="noopener noreferrer">https://client-management.primedcw.com/</a>
 - Backend Url : <a href="https://client-management-admin.primedcw.com/" target="_blank" rel="noopener noreferrer">https://client-management-admin.primedcw.com/</a>
 
+### Important note about Frontend vs Backend
+
+- The **frontend** is mainly for **login**, **client API testing**, and **client view**.
+- The **backend admin panel** contains the **main features**, including **client import/export** and full client management.
+
 
 ### Demo login
 
