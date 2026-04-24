@@ -20,7 +20,7 @@ class TestRunnerController extends Controller
 
         $process = $this->runCommand([
             PHP_BINARY,
-            base_path('vendor/bin/pest'),
+            base_path('vendor/pestphp/pest/bin/pest'),
             base_path('tests/Feature/ClientManagementTest.php'),
         ], $this->testingEnvOverrides());
 
@@ -36,7 +36,7 @@ class TestRunnerController extends Controller
 
         $process = $this->runCommand([
             PHP_BINARY,
-            base_path('vendor/bin/pest'),
+            base_path('vendor/pestphp/pest/bin/pest'),
             base_path('tests/Unit/ClientCsvServiceTest.php'),
             base_path('tests/Unit/CsvTemplatesTest.php'),
             base_path('tests/Unit/ImportClientsRequestTest.php'),
